@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Book Tracker</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dark-mode {
+            background-color: #121212;
+            color: #fff;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .dark-mode .container {
+            background: #1e1e1e;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        select {
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .book-list {
+            list-style: none;
+            padding: 0;
+        }
+        .book-item {
+            background: #f1f1f1;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .dark-mode .book-item {
+            background: #2a2a2a;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="toggleDarkMode()" class="btn">🌙 Toggle Dark Mode</button>
+    <div class="container">
+        <h1>📚 My Book Tracker</h1>
+        <input type="text" id="search" placeholder="🔍 Search Books" onkeyup="filterBooks()">
+        <select id="sort" onchange="sortBooks()">
+            <option value="title">Sort by Title</option>
+            <option value="author">Sort by Author</option>
+            <option value="rating">Sort by Rating</option>
+            <option value="date">Sort by Date</option>
+        </select>
+        
+        <form id="bookForm">
+            <div class="form-group">
+                <label for="title">Book Title</label>
+                <input type="text" id="title" placeholder="Enter book title" required>
+            </div>
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" id="author" placeholder="Enter author name" required>
+            </div>
+            <div class="form-group">
+                <label for="rating">Rating (1-5)</label>
+                <input type="number" id="rating" placeholder="Enter rating" min="1" max="5" required>
+            </div>
+            <button type="submit" class="btn">➕ Add Book</button>
+        </form>
+        
+        <h2>📖 My Books</h2>
+        <ul class="book-list" id="bookList"></ul>
+    </div>
+    
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+        function filterBooks() {
+            let search = document.getElementById('search').value.toLowerCase();
+            let books = document.querySelectorAll('.book-item');
+            books.forEach(book => {
+                let title = book.querySelector('h3').innerText.toLowerCase();
+                book.style.display = title.includes(search) ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
